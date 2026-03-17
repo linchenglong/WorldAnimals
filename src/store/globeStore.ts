@@ -70,7 +70,11 @@ export const useGlobeStore = create<GlobeState>((set, get) => ({
   loadingProgress: 0,
   
   // Actions
-  setHoveredMarker: (id) => set({ hoveredMarkerId: id }),
+  setHoveredMarker: (id) => set({ 
+    hoveredMarkerId: id,
+    // hover 时暂停自转，离开时恢复（详情面板打开时不恢复）
+    isGlobeRotating: id !== null ? false : !get().detailPanel.isOpen,
+  }),
   
   setSelectedMarker: (id) => {
     set({ selectedMarkerId: id });

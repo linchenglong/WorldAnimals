@@ -22,8 +22,6 @@ function GlobeInner({ markerData }: GlobeProps) {
     setHoveredMarker,
     setSelectedMarker,
     openDetailPanel,
-    isGlobeRotating,
-    isUserInteracting
   } = useGlobeStore();
 
   const prevHoveredId = useRef<string | null>(null);
@@ -175,8 +173,6 @@ function FallbackGlobe({ markerData }: GlobeProps) {
     setHoveredMarker,
     setSelectedMarker,
     openDetailPanel,
-    isGlobeRotating,
-    isUserInteracting
   } = useGlobeStore();
 
   const prevHoveredId = useRef<string | null>(null);

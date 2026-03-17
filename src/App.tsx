@@ -11,14 +11,15 @@ import { prepareMarkerData } from './types/data';
 import rawData from '../animals.json';
 
 function App() {
- const {
- isLoading,
- setLoading,
- setLoadingProgress,
- setUserInteracting,
- hoveredMarkerId,
- detailPanel,
- } = useGlobeStore();
+  const {
+    isLoading,
+    setLoading,
+    setLoadingProgress,
+    setUserInteracting,
+    hoveredMarkerId,
+    detailPanel,
+    closeDetailPanel,
+  } = useGlobeStore();
 
   const [markerData] = useState(() => prepareMarkerData(rawData as any[]));
 
@@ -48,6 +49,13 @@ function App() {
     setUserInteracting(false);
   }, [setUserInteracting]);
 
+  // 点击空白处关闭详情面板
+  const handleCanvasClick = useCallback(() => {
+    if (detailPanel.isOpen && !hoveredMarkerId) {
+      closeDetailPanel();
+    }
+  }, [detailPanel.isOpen, hoveredMarkerId, closeDetailPanel]);
+
   return (
     <div className="app-container" style={{
       width: '100%',
@@ -69,6 +77,7 @@ function App() {
         dpr={[1, 2]}
         onPointerDown={handlePointerDown}
         onPointerUp={handlePointerUp}
+        onClick={handleCanvasClick}
         style={{ background: 'transparent' }}
       >
         {/* 背景星空 */}
